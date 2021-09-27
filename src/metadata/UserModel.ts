@@ -21,6 +21,18 @@ export const userModel: Model = {
     dateOfBirth: {
       type: 'datetime',
       field: 'date_of_birth'
+    },
+    interests:{
+      match: 'contain'
+    },
+    skills:{
+      match: 'contain'
+    },
+    achievements:{
+      match: 'contain'
+    },
+    settings:{
+      match: 'contain'
     }
   }
 };

@@ -28,6 +28,7 @@ export class UserController {
     const s = fromRequest<UserSM>(req);
     const l = getParameters(s);
     format(s, ['dateOfBirth']);
+    // console.log(s,l);
     this.find(s, l.limit, l.skipOrRefId, l.fields)
       .then(result => jsonResult(res, result))
       .catch(err => handleError(err, res, this.log));

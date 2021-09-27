@@ -17,7 +17,7 @@ app.use(json());
 export const pool = new Pool ({
   user: 'postgres',
   host: 'localhost',
-  password: 'abcd1234',
+  password: 'postgres',
   database: 'masterdata',
   port: 5432
 });
