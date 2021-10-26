@@ -1,5 +1,39 @@
 import {Model} from 'query-core';
 
+export const skillsModel: Model = {
+  name:'skills',
+  attributes:{
+    skill: {
+      required: true
+    },
+    hirable: {
+      type: 'boolean',
+    },
+  }
+};
+
+export const userSettingsModel: Model = {
+  name:"settings",
+  attributes:{
+    userId: {},
+    language: {},
+    dateFormat: {},
+    dateTimeFormat:{},
+    timeFormat:{},
+    notification:{
+      type:'boolean',
+    }
+  }
+};
+
+export const achievements: Model = {
+  name:"achievements",
+  attributes:{
+    subject: {},
+    description: {},
+  }
+}
+
 export const userModel: Model = {
   name: 'user',
   attributes: {
@@ -23,16 +57,19 @@ export const userModel: Model = {
       field: 'date_of_birth'
     },
     interests:{
-      match: 'contain'
+      type: 'primitives',
     },
     skills:{
-      match: 'contain'
+      type: 'primitives',
+      typeof: skillsModel.attributes,
     },
     achievements:{
-      match: 'contain'
+      type: 'primitives',
+      typeof: achievements.attributes,
     },
     settings:{
-      match: 'contain'
+      type: 'object',
+      typeof: userSettingsModel.attributes,
     }
   }
 };

@@ -1,76 +1,10 @@
-import {Request, Response} from 'express';
-import {Attribute, buildAndCheckIdWithBody, format, fromRequest, getParameters, handleError, jsonResult, param, respondModel, SearchResult} from 'express-ext';
-import {keys} from 'query-core';
-import {userModel} from './UserModel';
-import {User} from './User';
-import {UserSM} from './UserSM';
-import {UserService} from './UserService';
+import { Controller } from 'express-ext';
+import { User } from './User';
+import { UserFilter } from './UserFilter';
+import { UserService } from './UserService';
 
-export class UserController {
-  constructor(private find: (s: UserSM, limit?: number, skip?: number|string, fields?: string[]) => Promise<SearchResult<User>>, private userService: UserService, private log?: (msg: any, ctx?: any) => void) {
-    this.all = this.all.bind(this);
-    this.search = this.search.bind(this);
-    this.load = this.load.bind(this);
-    this.insert = this.insert.bind(this);
-    this.update = this.update.bind(this);
-    this.patch = this.patch.bind(this);
-    this.delete = this.delete.bind(this);
-    this.keys = keys(userModel.attributes);
-  }
-  protected keys: Attribute[];
-
-  all(req: Request, res: Response) {
-    this.userService.all()
-      .then(users => res.status(200).json(users))
-      .catch(err => res.status(500).send(err));
-  }
-  search(req: Request, res: Response) {
-    const s = fromRequest<UserSM>(req);
-    const l = getParameters(s);
-    format(s, ['dateOfBirth']);
-    // console.log(s,l);
-    this.find(s, l.limit, l.skipOrRefId, l.fields)
-      .then(result => jsonResult(res, result))
-      .catch(err => handleError(err, res, this.log));
-  }
-  load(req: Request, res: Response) {
-    const id = param(req, res, 'id');
-    if (id) {
-      this.userService.load(id)
-        .then(user => respondModel(user, res))
-        .catch(err => handleError(err, res, this.log));
-    }
-  }
-  insert(req: Request, res: Response) {
-    const user = req.body;
-    this.userService.insert(user)
-      .then(result => res.status(201).json(result))
-      .catch(err => handleError(err, res, this.log));
-  }
-  update(req: Request, res: Response) {
-    const id = buildAndCheckIdWithBody(req, res, this.keys);
-    if (id) {
-      const user = req.body;
-      this.userService.update(user)
-      .then(result => res.status(200).json(result))
-      .catch(err => handleError(err, res, this.log));
-    }
-  }
-  patch(req: Request, res: Response) {
-    const id = buildAndCheckIdWithBody(req, res, this.keys);
-    if (id) {
-      const user = req.body;
-      this.userService.patch(user)
-      .then(result => res.status(200).json(result))
-      .catch(err => handleError(err, res, this.log));
-    }
-  }
-  delete(req: Request, res: Response) {
-    const id = param(req, res, 'id');
-    if (id) {
-      this.userService.delete(id)
-      .then(result => res.status(200).json(result))
-      .catch(err => handleError(err, res, this.log));
-    }
+export class UserController extends Controller<User, string, UserFilter> {
+  constructor(log: (msg: any, ctx?: any) => void, private userService: UserService) {
+    super(log, userService);
   }
 }

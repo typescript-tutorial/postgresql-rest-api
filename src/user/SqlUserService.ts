@@ -1,37 +1,16 @@
-import {Pool} from 'pg';
-import {exec, param, query, queryOne, StringMap} from 'postgre';
-import {Attribute, buildMap, buildToDelete, buildToInsert, buildToUpdate, keys, select} from 'query-core';
-import {userModel} from './UserModel';
-import {User} from './User';
+import { Attribute, SearchResult, Service, StringMap } from 'query-core';
+import { User } from './User';
+import { UserFilter } from './UserFilter';
+import { userModel } from './UserModel';
+import { UserService } from './UserService';
 
-export class SqlUserService {
-  private keys: Attribute[];
-  private map: StringMap;
-  constructor(private pool: Pool) {
-    this.keys = keys(userModel.attributes);
-    this.map = buildMap(userModel.attributes);
-  }
-  all(): Promise<User[]> {
-    return query<User>(this.pool, 'select * from users order by id asc', undefined, this.map);
-  }
-  load(id: string): Promise<User> {
-    const stmt = select(id, 'users', this.keys, param);
-    return queryOne(this.pool, stmt.query, stmt.params, this.map);
-  }
-  insert(user: User): Promise<number> {
-    const stmt = buildToInsert(user, 'users', userModel.attributes, param);
-    return exec(this.pool, stmt.query, stmt.params);
-  }
-  update(user: User): Promise<number> {
-    const stmt = buildToUpdate(user, 'users', userModel.attributes, param);
-    return exec(this.pool, stmt.query, stmt.params);
-  }
-  patch(user: User): Promise<number> {
-    const stmt = buildToUpdate(user, 'users', userModel.attributes, param);
-    return exec(this.pool, stmt.query, stmt.params);
-  }
-  delete(id: string): Promise<number> {
-    const stmt = buildToDelete(id, 'users', this.keys, param);
-    return exec(this.pool, stmt.query, stmt.params);
+export class SqlUserService extends Service<User, string, UserFilter> implements UserService {
+  constructor(
+    param: (i: number) => string,
+    find: (s: UserFilter, limit?: number, offset?: number | string, fields?: string[]) => Promise<SearchResult<User>>,
+    query: <T>(sql: string, args?: any[], m?: StringMap, bools?: Attribute[]) => Promise<T[]>,
+    exec: (sql: string, args?: any[]) => Promise<number>
+  ) {
+    super(find, 'users', query, exec, userModel.attributes, param);
   }
 }
