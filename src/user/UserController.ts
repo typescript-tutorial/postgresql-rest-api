@@ -1,10 +1,10 @@
 import {Request, Response} from 'express';
 import {Attribute, buildAndCheckIdWithBody, format, fromRequest, getParameters, handleError, jsonResult, param, respondModel, SearchResult} from 'express-ext';
 import {keys} from 'query-core';
-import {userModel} from '../metadata/UserModel';
-import {User} from '../models/User';
-import {UserSM} from '../search-models/UserSM';
-import {UserService} from '../services/UserService';
+import {userModel} from './UserModel';
+import {User} from './User';
+import {UserSM} from './UserSM';
+import {UserService} from './UserService';
 
 export class UserController {
   constructor(private find: (s: UserSM, limit?: number, skip?: number|string, fields?: string[]) => Promise<SearchResult<User>>, private userService: UserService, private log?: (msg: any, ctx?: any) => void) {

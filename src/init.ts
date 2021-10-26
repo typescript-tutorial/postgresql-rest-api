@@ -3,11 +3,11 @@ import {Pool} from 'pg';
 import {PoolManager, PostgreSQLChecker, param, Statement} from 'postgre';
 import {postgre, SearchBuilder} from 'query-core';
 import {ApplicationContext} from './context';
-import {UserController} from './controllers/UserController';
-import {userModel} from './metadata/UserModel';
-import {User} from './models/User';
-import {UserSM} from './search-models/UserSM';
-import {SqlUserService} from './services/sql/SqlUserService';
+import {UserController} from './user/UserController';
+import {userModel} from './user/UserModel';
+import {User} from './user/User';
+import {UserSM} from './user/UserSM';
+import {SqlUserService} from './user/SqlUserService';
 
 export function log(msg: any, ctx?: any): void {
   console.log(msg);
@@ -23,7 +23,7 @@ export function createContext(pool: Pool): ApplicationContext {
   return ctx;
 }
 // search trong mảng skills , interests 
-export function buildQuery(s: UserSM, param ):Statement {
+export function buildQuery(s: UserSM ):Statement {
   let query = `select * from users`;
   let where=[];
   let params= [];
@@ -60,21 +60,22 @@ export function buildQuery(s: UserSM, param ):Statement {
       i ++
     }
   }
+  if(orWhereAchievements.length > 0) {
+    where.push(`(${orWhereAchievements.join(" or")})`);
+  }
+  if(orWhereSkills.length > 0) {
+    where.push(`(${orWhereSkills.join(" or")})`);
+  }
   if(where.length > 0) {
     query = query + ` where` + where.join(" and");
   }
-  if(orWhereAchievements.length > 0) {
-    query = query + ` and ` + `(${orWhereAchievements.join(" or")})`;
-  }
-  if(orWhereSkills.length > 0) {
-    query = query + ` and ` + `(${orWhereSkills.join(" or")})`;
-  }
-  console.log(query);
+
+  // console.log(query);
   const f : Statement = {
     query,
     params,
   }
-  console.log(f.params);
+  // console.log(f.params);
   return f;
 }
 

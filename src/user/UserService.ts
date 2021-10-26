@@ -1,4 +1,4 @@
-import {User} from '../models/User';
+import {User} from './User';
 
 export interface UserService {
   all(): Promise<User[]>;

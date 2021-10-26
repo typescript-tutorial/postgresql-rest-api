@@ -1,8 +1,8 @@
 import {Pool} from 'pg';
 import {exec, param, query, queryOne, StringMap} from 'postgre';
 import {Attribute, buildMap, buildToDelete, buildToInsert, buildToUpdate, keys, select} from 'query-core';
-import {userModel} from '../../metadata/UserModel';
-import {User} from '../../models/User';
+import {userModel} from './UserModel';
+import {User} from './User';
 
 export class SqlUserService {
   private keys: Attribute[];

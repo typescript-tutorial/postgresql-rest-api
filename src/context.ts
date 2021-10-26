@@ -1,5 +1,5 @@
 import {HealthController} from 'express-ext';
-import {UserController} from './controllers/UserController';
+import {UserController} from './user/UserController';
 
 export interface ApplicationContext {
   health: HealthController;

@@ -12,12 +12,12 @@ export interface UserSM extends SearchModel {
   settings?:Settings;
 }
 export interface Skill {
-      skill: string, 
-      hirable: boolean
+  skill: string, 
+  hirable: boolean
 } 
 export interface Achievement{
-    subject:string,
-    description: string
+  subject:string,
+  description: string
 } 
 export interface Settings {
   language: string, 
