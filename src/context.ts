@@ -4,7 +4,7 @@ import { param, PoolManager, PostgreSQLChecker } from 'postgre';
 import { postgres, SearchBuilder} from 'query-core';
 import { createValidator } from 'validator-x';
 import { SqlUserService, User, UserController, UserFilter, userModel } from './user';
-import { buildQuery } from './user/UserQuery';
+import { buildQuery } from './user';
 
 export function log(msg: string, ctx?: any): void {
   console.log(msg);

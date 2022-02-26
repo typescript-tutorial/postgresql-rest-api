@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express, { json } from 'express';
 import http from 'http';
 import { Pool } from 'pg';
-import { createContext } from './init';
+import { createContext } from './context';
 import { route } from './route';
 
 dotenv.config();
