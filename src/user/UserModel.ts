@@ -1,8 +1,63 @@
-import {Model} from 'query-core';
+import { DateRange, Filter, Model, ResultInfo, Service } from 'onecore';
+
+export interface UserFilter extends Filter {
+  id: string;
+  username: string;
+  email?: string;
+  phone?: string;
+  dateOfBirth?: Date | DateRange;
+  interests: string[];
+  skills: Skill[];
+  achievements: Achievement[];
+  settings: UserSettings;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email?: string;
+  phone?: string;
+  dateOfBirth?: Date;
+  interests: string[];
+  skills: Skill[];
+  achievements: Achievement[];
+  settings: UserSettings;
+}
+
+export interface Skill {
+  skill: string;
+  hirable: boolean;
+}
+
+export interface UserSettings {
+  userId: string;
+  language: string;
+  dateFormat: string;
+  dateTimeFormat: string;
+  timeFormat: string;
+  notification: boolean;
+}
+
+export interface Achievement {
+  subject: string;
+  description: string;
+}
+
+export interface Appreciation {
+  id: string;
+  userId: string;
+  appreciator: string;
+  appreciatedAt: string;
+  subject: string;
+  description: string;
+}
+
+export interface UserService extends Service<User, string, number | ResultInfo<User>, UserFilter> {
+}
 
 export const skillsModel: Model = {
-  name:'skills',
-  attributes:{
+  name: 'skills',
+  attributes: {
     skill: {
       required: true
     },
@@ -13,26 +68,26 @@ export const skillsModel: Model = {
 };
 
 export const userSettingsModel: Model = {
-  name:"settings",
-  attributes:{
+  name: 'settings',
+  attributes: {
     userId: {},
     language: {},
     dateFormat: {},
-    dateTimeFormat:{},
-    timeFormat:{},
-    notification:{
-      type:'boolean',
+    dateTimeFormat: {},
+    timeFormat: {},
+    notification: {
+      type: 'boolean',
     }
   }
 };
 
 export const achievements: Model = {
-  name:"achievements",
-  attributes:{
+  name: 'achievements',
+  attributes: {
     subject: {},
     description: {},
   }
-}
+};
 
 export const userModel: Model = {
   name: 'user',
@@ -56,18 +111,18 @@ export const userModel: Model = {
       type: 'datetime',
       field: 'date_of_birth'
     },
-    interests:{
+    interests: {
       type: 'primitives',
     },
-    skills:{
+    skills: {
       type: 'primitives',
       typeof: skillsModel.attributes,
     },
-    achievements:{
+    achievements: {
       type: 'primitives',
       typeof: achievements.attributes,
     },
-    settings:{
+    settings: {
       type: 'object',
       typeof: userSettingsModel.attributes,
     }

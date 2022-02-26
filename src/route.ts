@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import { ApplicationContext } from './context';
+import { ApplicationContext } from './init';
 
 export function route(app: Application, ctx: ApplicationContext): void {
   app.get('/health', ctx.health.check);
