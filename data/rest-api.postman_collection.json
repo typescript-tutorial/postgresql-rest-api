@@ -44,6 +44,76 @@
 			"response": []
 		},
 		{
+			"name": "config log",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"level\": \"DEBUG\",\n    \"map\": {\n        \"msg\": \"message\",\n        \"time\": \"@timestamp\"\n    },\n    \"constants\": {\n        \"app\": \"123\",\n        \"service\": \"user-service\"\n    },\n    \"name\": {\n        \"trace\": \"trace\",\n        \"debug\": \"debug\",\n        \"info\": \"info\",\n        \"warn\": \"warn\",\n        \"error\": \"error\",\n        \"panic\": \"panic\",\n        \"fatal\": \"fatal\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "config middleware",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"log\": true,\n    \"separate\": false,\n    \"skips\": [\"health\"],\n    \"duration\": \"duration\",\n    \"request\": \"request\",\n    \"response\": \"response\",\n    \"status\": \"status\",\n    \"size\": \"size\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/middleware",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"middleware"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "search users",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -122,7 +192,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"page\": 1,\n    \"limit\": 20,\n    \"username\": \"james.howlett\",\n    \"email\": \"james\",\n    \"phone\": \"0987654321\",\n    \"dateOfBirth\": {\n        \"min\": \"1974-11-15T17:00:00.000Z\",\n        \"max\": \"1976-11-15T17:00:00.000Z\"\n    },\n    \"sort\": \"phone,-id\"\n}",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 20,\n    \"sort\": \"phone,-id\",\n    \"dateOfBirth\": {\n        \"min\": \"1973-03-24T17:00:00.000Z\",\n        \"max\": \"1976-03-24T17:00:00.000Z\"\n    },\n    \"interests\": [\"Football\", \"Basketball\"],\n    \"skills\": [\n        {\n            \"skill\": \"Java\"\n        },\n        {\n            \"skill\": \"React\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -235,7 +305,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"wolverine\",\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n}",
+					"raw": "{\n    \"id\": \"wolverine\",\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"date_of_birth\": \"1974-11-15T17:00:00.000Z\",\n    \"interests\": [\n        \"Basketball\",\n        \"Football\"\n    ],\n    \"skills\": [\n        {\n            \"skill\": \"React\",\n            \"hirable\": true\n        }\n    ],\n    \"achievements\": [\n        {\n            \"subject\": \"test3\",\n            \"description\": \"tesssssssssss\"\n        }\n    ],\n    \"settings\": {\n        \"language\": \"France\",\n        \"dateFormat\": \"dd/mm/yyyy\",\n        \"timeFormat\": \"hh:mm:ss\",\n        \"notification\": true,\n        \"dateTimeFormat\": \"dd-mm-yyyy:hh:mm\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -270,7 +340,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n}",
+					"raw": "{\n    \"id\": \"wolverine\",\n    \"username\": \"james.howlett\",\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"date_of_birth\": \"1974-11-15T17:00:00.000Z\",\n    \"interests\": [\n        \"Basketball\",\n        \"Football\"\n    ],\n    \"skills\": [\n        {\n            \"skill\": \"React\",\n            \"hirable\": true\n        }\n    ],\n    \"achievements\": [\n        {\n            \"subject\": \"test3\",\n            \"description\": \"tesssssssssss\"\n        }\n    ],\n    \"settings\": {\n        \"language\": \"France\",\n        \"dateFormat\": \"dd/mm/yyyy\",\n        \"timeFormat\": \"hh:mm:ss\",\n        \"notification\": true,\n        \"dateTimeFormat\": \"dd-mm-yyyy:hh:mm\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,7 +376,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"james.howlett@gmail.com\",\n    \"phone\": \"0987654321\"\n}",
+					"raw": "{\n    \"email\": \"james.howlett@gmail.com\",\n    \"dateOfBirth\": \"1974-11-16T00:00:00+07:00\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

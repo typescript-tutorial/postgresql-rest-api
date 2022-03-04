@@ -1,4 +1,4 @@
-import { Statement } from 'postgre';
+import { Statement } from 'query-core';
 import { UserFilter } from './user';
 
 export function buildQuery(s: UserFilter): Statement {

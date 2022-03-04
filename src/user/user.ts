@@ -1,4 +1,4 @@
-import { DateRange, Filter, Model, ResultInfo, Service } from 'onecore';
+import { DateRange, Filter, Model, Service } from 'onecore';
 
 export interface UserFilter extends Filter {
   id: string;
@@ -52,7 +52,7 @@ export interface Appreciation {
   description: string;
 }
 
-export interface UserService extends Service<User, string, number | ResultInfo<User>, UserFilter> {
+export interface UserService extends Service<User, string, UserFilter> {
 }
 
 export const skillsModel: Model = {
@@ -90,7 +90,7 @@ export const achievements: Model = {
 };
 
 export const userModel: Model = {
-  name: 'user',
+  name: 'users',
   attributes: {
     id: {
       key: true,

@@ -1,29 +1,26 @@
-import { HealthController, resources } from 'express-ext';
-import { Pool } from 'pg';
-import { param, PoolManager, PostgreSQLChecker } from 'postgre';
+import { HealthController, LogController, Logger, Middleware, MiddlewareController, resources } from 'express-ext';
+import { createChecker, DB } from 'query-core';
 import { postgres, SearchBuilder} from 'query-core';
-import { createValidator } from 'validator-x';
-import { SqlUserService, User, UserController, UserFilter, userModel } from './user';
-import { buildQuery } from './user';
+import { createValidator } from 'xvalidators';
+import { buildQuery, SqlUserService, User, UserController, UserFilter, userModel } from './user';
 
-export function log(msg: string, ctx?: any): void {
-  console.log(msg);
-}
 resources.createValidator = createValidator;
 
 export interface ApplicationContext {
   health: HealthController;
+  log: LogController;
+  middleware: MiddlewareController;
   user: UserController;
 }
-export function createContext(pool: Pool): ApplicationContext {
-  const sqlChecker = new PostgreSQLChecker(pool);
+export function useContext(db: DB, logger: Logger, midLogger: Middleware): ApplicationContext {
+  const log = new LogController(logger);
+  const middleware = new MiddlewareController(midLogger);
+  const sqlChecker = createChecker(db);
   const health = new HealthController([sqlChecker]);
-  const manager = new PoolManager(pool);
 
-  const userSearchBuilder = new SearchBuilder<User, UserFilter>(manager.query, 'users', userModel.attributes, postgres, buildQuery);
-  const userService = new SqlUserService(param, userSearchBuilder.search, manager.query, manager.exec);
-  const user = new UserController(log, userService);
+  const userSearchBuilder = new SearchBuilder<User, UserFilter>(db.query, 'users', userModel.attributes, postgres, buildQuery);
+  const userService = new SqlUserService(userSearchBuilder.search, db);
+  const user = new UserController(logger.error, userService);
 
-  const ctx: ApplicationContext = { health, user };
-  return ctx;
+  return { health, log, middleware, user };
 }
