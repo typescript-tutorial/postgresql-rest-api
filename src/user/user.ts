@@ -1,4 +1,4 @@
-import { DateRange, Filter, Model, Service } from 'onecore';
+import { DateRange, Filter, Model, Repository, Service } from 'onecore';
 
 export interface UserFilter extends Filter {
   id: string;
@@ -51,7 +51,8 @@ export interface Appreciation {
   subject: string;
   description: string;
 }
-
+export interface UserRepository extends Repository<User, string> {
+}
 export interface UserService extends Service<User, string, UserFilter> {
 }
 

@@ -1,9 +1,8 @@
-import { Search } from 'onecore';
-import { DB, Service } from 'query-core';
-import { User, UserFilter, userModel, UserService } from './user';
+import { DB, Repository } from 'query-core';
+import { User, userModel, UserRepository } from './user';
 
-export class SqlUserService extends Service<User, string, UserFilter> implements UserService {
-  constructor(find: Search<User, UserFilter>, db: DB) {
-    super(find, db, 'users', userModel.attributes);
+export class SqlUserRepository extends Repository<User, string> implements UserRepository {
+  constructor(db: DB) {
+    super(db, 'users', userModel.attributes);
   }
 }

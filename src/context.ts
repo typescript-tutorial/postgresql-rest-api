@@ -1,8 +1,7 @@
 import { HealthController, LogController, Logger, Middleware, MiddlewareController, resources } from 'express-ext';
 import { createChecker, DB } from 'query-core';
-import { postgres, SearchBuilder} from 'query-core';
 import { createValidator } from 'xvalidators';
-import { buildQuery, SqlUserService, User, UserController, UserFilter, userModel } from './user';
+import { UserController, useUserController } from './user';
 
 resources.createValidator = createValidator;
 
@@ -18,9 +17,7 @@ export function useContext(db: DB, logger: Logger, midLogger: Middleware): Appli
   const sqlChecker = createChecker(db);
   const health = new HealthController([sqlChecker]);
 
-  const userSearchBuilder = new SearchBuilder<User, UserFilter>(db.query, 'users', userModel.attributes, postgres, buildQuery);
-  const userService = new SqlUserService(userSearchBuilder.search, db);
-  const user = new UserController(logger.error, userService);
+  const user = useUserController(logger.error, db);
 
   return { health, log, middleware, user };
 }
