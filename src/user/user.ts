@@ -41,13 +41,12 @@ export interface UserFilter extends Filter {
   username: string;
   email?: string;
   phone?: string;
-  dateOfBirth?: Date | DateRange;
+  dateOfBirth?: DateRange;
   interests: string[];
   skills: Skill[];
   achievements: Achievement[];
   settings: UserSettings;
 }
-
 export interface UserRepository extends Repository<User, string> {
 }
 export interface UserService extends Service<User, string, UserFilter> {
@@ -61,7 +60,6 @@ export const skillsModel: Attributes = {
     type: 'boolean',
   }
 };
-
 export const userSettingsModel: Attributes = {
   userId: {},
   language: {},
@@ -72,23 +70,20 @@ export const userSettingsModel: Attributes = {
     type: 'boolean',
   }
 };
-
 export const achievements: Attributes = {
   subject: {},
   description: {}
 };
-
 export const userModel: Attributes = {
   id: {
     key: true,
     match: 'equal'
   },
-  username: {
-    match: 'contain'
-  },
+  username: {},
   email: {
     format: 'email',
-    required: true
+    required: true,
+    match: 'prefix'
   },
   phone: {
     format: 'phone',

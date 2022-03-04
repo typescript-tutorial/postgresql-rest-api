@@ -18,6 +18,32 @@ export function buildQuery(s: UserFilter): Statement {
     }
     where.push(`(${skills.join(' or ')})`);
   }
+  if (s.dateOfBirth) {
+    if (s.dateOfBirth.min) {
+      where.push(`date_of_birth >= $${i++}`);
+      params.push(s.dateOfBirth.min);
+    }
+    if (s.dateOfBirth.max) {
+      where.push(`date_of_birth <= $${i++}`);
+      params.push(s.dateOfBirth.max);
+    }
+  }
+  if (s.id && s.id.length > 0) {
+    where.push(`id = $${i++}`);
+    params.push(s.id);
+  }
+  if (s.username && s.username.length > 0) {
+    where.push(`username ilike $${i++}`);
+    params.push('%' + s.username + '%');
+  }
+  if (s.email && s.email.length > 0) {
+    where.push(`email ilike $${i++}`);
+    params.push(s.email + '%');
+  }
+  if (s.phone && s.phone.length > 0) {
+    where.push(`username ilike $${i++}`);
+    params.push('%' + s.phone + '%');
+  }
   if (s.settings) {
     params.push(s.settings);
     where.push(`settings @> $${i++}`);

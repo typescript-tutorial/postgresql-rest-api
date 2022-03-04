@@ -1,12 +1,12 @@
 import { Log, Manager, Search } from 'onecore';
 import { DB, postgres, SearchBuilder } from 'query-core';
 import { buildQuery } from './query';
-import { SqlUserRepository } from './sql-user-repository';
 import { User, UserFilter, userModel, UserRepository, UserService } from './user';
 import { UserController } from './user-controller';
-
 export * from './user';
 export { UserController };
+
+import { SqlUserRepository } from './sql-user-repository';
 
 export class UserManager extends Manager<User, string, UserFilter> implements UserService {
   constructor(search: Search<User, UserFilter>, repository: UserRepository) {
