@@ -1,1 +1,1 @@
-# postgresql-rest-api
+# postgres-tutorial
