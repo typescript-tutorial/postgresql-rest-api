@@ -59,10 +59,6 @@ export function buildQuery(s: UserFilter): Statement {
   if (where.length > 0) {
     query = query + ` where ` + where.join(' and ');
   }
-  if (s.limit && s.limit > 0) {
-    query = query + ` limit ${s.limit}`;
-  }
-  console.log(query);
   return { query, params };
 }
 // CREATE INDEX interests_index ON users (interests);

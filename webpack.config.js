@@ -1,5 +1,6 @@
 const webpack = require('webpack'),
   path = require('path'),
+  UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -24,6 +25,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
+    new UglifyJsPlugin({
+      test: /\.js($|\?)/i
+    }),
     new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
     new BundleAnalyzerPlugin()
   ],
