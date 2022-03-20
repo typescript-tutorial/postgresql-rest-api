@@ -1,5 +1,6 @@
 const webpack = require('webpack'),
-  path = require('path');
+  path = require('path'),
+  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   target: 'node',
@@ -19,10 +20,11 @@ module.exports = {
     extensions: [".ts", ".js"]
   },
   output: {
-    filename: '[name].js',
+    filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
+    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
+    new BundleAnalyzerPlugin()
   ],
 };
