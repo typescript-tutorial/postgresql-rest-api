@@ -34,3 +34,31 @@ insert into users (id, username, email, phone, date_of_birth, interests, skills,
 insert into users (id, username, email, phone, date_of_birth, interests, skills, achievements, settings) values ('wolverine', 'james.howlett', 'james.howlett@gmail.com', '0987654321', '1974-11-16', '{Basketball,Football}', '{"{\"skill\": \"React\", \"hirable\": true}"}', '{"{\"subject\": \"test3\", \"description\": \"tesssssssssss\"}"}', '{"language": "France","dateFormat": "dd/mm/yyyy","timeFormat": "hh:mm:ss","notification": true,"dateTimeFormat": "dd-mm-yyyy:hh:mm"}');
 insert into users (id, username, email, phone, date_of_birth, interests, skills, achievements, settings) values ('ironman1', 'tony.stark', 'tony.stark@gmail.com', '0987654321', '1963-03-25', '{Photography,Football}', '{"{\"skill\": \"Angular\", \"hirable\": false}"}', '{"{\"subject\": \"test4\", \"description\": \"tesssssssssss\"}"}', '{"language": "Spanish","dateFormat": "dd/mm/yyyy","timeFormat": "hh:mm:ss","notification": true,"dateTimeFormat": "dd-mm-yyyy:hh:mm"}');
 insert into users (id, username, email, phone, date_of_birth, interests, skills, achievements, settings) values ('wolverine1', 'james.howlett', 'james.howlett@gmail.com', '0987654321', '1974-11-16', '{Basketball,Playgame}', '{"{\"skill\": \"Nodejs\", \"hirable\": false}","{\"skill\": \"React\", \"hirable\": false}"}','{"{\"subject\": \"test2\", \"description\": \"tesssssssssss\"}"}', '{"language": "Spanish","dateFormat": "dd/mm/yyyy","timeFormat": "hh:mm:ss","notification": true,"dateTimeFormat": "dd-mm-yyyy:hh:mm"}');
+
+create table items
+(
+    id character varying(40) not null,
+    title character varying(255),
+    description character varying(255),
+    constraint items_pkey primary key (id)
+);
+
+insert into items (id, title, description) values 
+('abc', 'title test', 'description test'),
+('abc1', 'title test1', 'description test1'),
+('abc2', 'title test2', 'description test2')
+;
+
+create table articles
+(
+    id character varying(40) not null,
+    title character varying(255),
+    description character varying(255),
+    constraint items_pkey primary key (id)
+);
+
+insert into articles (id, title, description) values 
+('acticle', ' test acticle', 'acticle test'),
+('acticle1', 'acticle test1', 'acticle test1'),
+('acticle2', 'acticle test2', 'acticle test2')
+;

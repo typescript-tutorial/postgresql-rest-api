@@ -1,10 +1,10 @@
 export const config = {
-  port: 8082,
+  port: 9000,
   allow: {
-    origin: '*',
+    origin: 'http://localhost:3000',
     credentials: 'true',
     methods: 'GET,PUT,POST,DELETE,OPTIONS,PATCH',
-    headers: '*'
+    headers: 'Access-Control-Allow-Headers, Authorization, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
   },
   log: {
     level: 'info',
@@ -24,17 +24,17 @@ export const config = {
   db: {
     user: 'postgres',
     host: 'localhost',
-    password: 'abcd1234',
-    database: 'masterdata2',
+    password: '12345678@Z',
+    database: 'study-postgres',
     port: 5432
   }
 };
 
 export const env = {
   sit: {
-    port: 8082,
+    port: 9000,
     db: {
-      database: 'masterdata_sit',
+      database: 'study-postgres',
     }
   },
   prod: {
