@@ -22,11 +22,7 @@ export const config = {
     size: 'size'
   },
   db: {
-    user: 'postgres',
-    host: 'localhost',
-    password: 'abcd1234',
-    database: 'masterdata2',
-    port: 5432
+    connectionString: 'postgres://mkwgzgli:si8QgTnTNbSlPf8FU7wNmGYF-TK2zH9h@satao.db.elephantsql.com/mkwgzgli'
   }
 };
 
